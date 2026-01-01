@@ -1,0 +1,1960 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>App360studio — Flutter App Development Studio</title>
+    <meta
+      name="description"
+      content="We build high-performance Flutter apps for Google Play & Apple App Store. UI/UX, MVP, scalable apps, and maintenance."
+    />
+    <style>
+      /* -------------------------
+        app360studio — Modern Website
+        Single-file HTML/CSS/JS
+      -------------------------- */
+
+      :root {
+        --bg: #070910;
+        --card: rgba(255, 255, 255, 0.06);
+        --card2: rgba(255, 255, 255, 0.08);
+        --text: rgba(255, 255, 255, 0.92);
+        --muted: rgba(255, 255, 255, 0.7);
+        --muted2: rgba(255, 255, 255, 0.6);
+        --line: rgba(255, 255, 255, 0.12);
+
+        --a: #7c3aed; /* purple */
+        --b: #22c55e; /* green */
+        --c: #06b6d4; /* cyan */
+        --d: #f59e0b; /* amber */
+
+        --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+        --radius: 18px;
+
+        --max: 1180px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        color: var(--text);
+        background: radial-gradient(1200px 600px at 20% 10%, rgba(124, 58, 237, 0.25), transparent 60%),
+          radial-gradient(900px 500px at 80% 20%, rgba(6, 182, 212, 0.2), transparent 60%),
+          radial-gradient(1000px 700px at 70% 85%, rgba(34, 197, 94, 0.18), transparent 60%),
+          var(--bg);
+        overflow-x: hidden;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      img {
+        max-width: 100%;
+        display: block;
+      }
+      .container {
+        width: min(var(--max), calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      /* subtle grid */
+      .grid-bg {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.6;
+        background-image: linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+        background-size: 60px 60px;
+        mask-image: radial-gradient(closest-side, rgba(0, 0, 0, 0.6), transparent 70%);
+      }
+
+      /* top glow */
+      .glow {
+        position: absolute;
+        inset: -40%;
+        background: radial-gradient(circle at 30% 35%, rgba(124, 58, 237, 0.25), transparent 55%),
+          radial-gradient(circle at 70% 35%, rgba(6, 182, 212, 0.18), transparent 55%),
+          radial-gradient(circle at 55% 70%, rgba(34, 197, 94, 0.14), transparent 55%);
+        filter: blur(30px);
+        opacity: 0.8;
+        pointer-events: none;
+        transform: translateZ(0);
+      }
+
+      /* nav */
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(14px);
+        background: rgba(7, 9, 16, 0.55);
+        border-bottom: 1px solid var(--line);
+      }
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 0;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        letter-spacing: 0.2px;
+      }
+      .logo {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--a), var(--c));
+        box-shadow: 0 18px 40px rgba(124, 58, 237, 0.18);
+        position: relative;
+        overflow: hidden;
+      }
+      .logo::after {
+        content: "";
+        position: absolute;
+        inset: -40%;
+        background: radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.35), transparent 60%);
+        transform: rotate(20deg);
+      }
+      .nav-links {
+        display: flex;
+        gap: 18px;
+        align-items: center;
+      }
+      .nav-links a {
+        color: var(--muted);
+        font-weight: 600;
+        font-size: 14px;
+        padding: 10px 12px;
+        border-radius: 12px;
+        transition: 0.2s ease;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .nav-cta {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .btn {
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--text);
+        padding: 10px 14px;
+        border-radius: 14px;
+        font-weight: 700;
+        font-size: 14px;
+        cursor: pointer;
+        transition: 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+        background: rgba(255, 255, 255, 0.07);
+      }
+      .btn-primary {
+        border: 0;
+        background: linear-gradient(135deg, var(--a), var(--c));
+        box-shadow: 0 16px 45px rgba(124, 58, 237, 0.25);
+      }
+      .btn-primary:hover {
+        filter: brightness(1.05);
+      }
+      .btn svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .hamburger {
+        display: none;
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.04);
+        cursor: pointer;
+      }
+      .hamburger span {
+        display: block;
+        height: 2px;
+        width: 18px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.85);
+        position: relative;
+      }
+      .hamburger span::before,
+      .hamburger span::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 18px;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.85);
+      }
+      .hamburger span::before {
+        top: -6px;
+      }
+      .hamburger span::after {
+        top: 6px;
+      }
+
+      .mobile-menu {
+        display: none;
+        border-top: 1px solid var(--line);
+        padding: 12px 0 16px;
+      }
+      .mobile-menu a {
+        display: block;
+        padding: 12px 10px;
+        border-radius: 12px;
+        color: var(--muted);
+        font-weight: 650;
+      }
+      .mobile-menu a:hover {
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text);
+      }
+
+      /* hero */
+      header.hero {
+        position: relative;
+        padding: 68px 0 34px;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 26px;
+        align-items: center;
+        position: relative;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.04);
+        color: var(--muted);
+        font-weight: 700;
+        font-size: 13px;
+      }
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: var(--b);
+        box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.12);
+      }
+      .hero h1 {
+        margin: 16px 0 10px;
+        font-size: clamp(34px, 4vw, 54px);
+        line-height: 1.05;
+        letter-spacing: -0.8px;
+      }
+      .grad-text {
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.65));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .hero p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.65;
+        max-width: 56ch;
+      }
+      .hero-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+      }
+      .meta-row {
+        display: flex;
+        gap: 18px;
+        margin-top: 18px;
+        flex-wrap: wrap;
+        color: var(--muted2);
+        font-weight: 650;
+        font-size: 13px;
+      }
+      .meta-row span {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .meta-row svg {
+        width: 16px;
+        height: 16px;
+        opacity: 0.9;
+      }
+
+      /* hero device */
+      .device-wrap {
+        position: relative;
+        border-radius: 26px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        padding: 16px;
+      }
+      .device {
+        border-radius: 22px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: linear-gradient(180deg, rgba(7, 9, 16, 0.7), rgba(7, 9, 16, 0.3));
+        overflow: hidden;
+        position: relative;
+        min-height: 440px;
+      }
+      .device-topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 14px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .circles {
+        display: flex;
+        gap: 8px;
+      }
+      .circles i {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.25);
+      }
+      .badge-mini {
+        font-size: 12px;
+        font-weight: 800;
+        color: rgba(255, 255, 255, 0.85);
+        padding: 8px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .device-content {
+        padding: 16px;
+        display: grid;
+        gap: 12px;
+      }
+      .card {
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.05);
+        padding: 14px;
+      }
+      .statline {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+      .statline strong {
+        font-size: 14px;
+      }
+      .statline span {
+        color: var(--muted);
+        font-weight: 700;
+        font-size: 12px;
+      }
+      .progress {
+        height: 10px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        overflow: hidden;
+        margin-top: 10px;
+      }
+      .progress > div {
+        height: 100%;
+        width: 0%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--a), var(--c), var(--b));
+        transition: width 1.2s ease;
+      }
+
+      .chip-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .chip {
+        padding: 10px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.04);
+        font-weight: 750;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.82);
+      }
+
+      /* sections */
+      section {
+        padding: 56px 0;
+        position: relative;
+      }
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        align-items: end;
+        margin-bottom: 18px;
+      }
+      .section-head h2 {
+        margin: 0;
+        font-size: clamp(24px, 2.2vw, 34px);
+        letter-spacing: -0.4px;
+      }
+      .section-head p {
+        margin: 0;
+        color: var(--muted);
+        max-width: 60ch;
+        line-height: 1.6;
+        font-weight: 600;
+      }
+
+      .cards-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .feature {
+        border-radius: var(--radius);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+        padding: 18px;
+        box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
+        position: relative;
+        overflow: hidden;
+      }
+      .feature::after {
+        content: "";
+        position: absolute;
+        inset: -50%;
+        background: radial-gradient(circle at 30% 20%, rgba(124, 58, 237, 0.18), transparent 55%),
+          radial-gradient(circle at 70% 70%, rgba(6, 182, 212, 0.14), transparent 55%);
+        opacity: 0.8;
+        pointer-events: none;
+        filter: blur(20px);
+      }
+      .feature .icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.05);
+        margin-bottom: 12px;
+        position: relative;
+        z-index: 1;
+      }
+      .feature h3 {
+        margin: 0 0 8px;
+        position: relative;
+        z-index: 1;
+        font-size: 16px;
+        letter-spacing: -0.2px;
+      }
+      .feature p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+        font-weight: 600;
+        font-size: 14px;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* showcase */
+      .showcase {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 14px;
+        align-items: start;
+      }
+      .project-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+      .project {
+        border-radius: var(--radius);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.05);
+        overflow: hidden;
+        cursor: pointer;
+        transition: 0.25s ease;
+        position: relative;
+      }
+      .project:hover {
+        transform: translateY(-3px);
+        background: rgba(255, 255, 255, 0.07);
+      }
+      .project .thumb {
+        height: 140px;
+        background: radial-gradient(280px 160px at 20% 20%, rgba(124, 58, 237, 0.35), transparent 60%),
+          radial-gradient(280px 160px at 80% 40%, rgba(6, 182, 212, 0.28), transparent 60%),
+          linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        position: relative;
+      }
+      .project .thumb::after {
+        content: "";
+        position: absolute;
+        inset: 14px;
+        border-radius: 18px;
+        border: 1px dashed rgba(255, 255, 255, 0.22);
+        opacity: 0.7;
+      }
+      .project .info {
+        padding: 14px;
+      }
+      .project .info strong {
+        display: block;
+        font-size: 14px;
+        letter-spacing: -0.2px;
+      }
+      .project .info span {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+        font-weight: 650;
+        font-size: 12px;
+        line-height: 1.45;
+      }
+
+      .side-card {
+        border-radius: var(--radius);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
+        padding: 18px;
+        box-shadow: var(--shadow);
+        position: sticky;
+        top: 88px;
+      }
+      .side-card h3 {
+        margin: 0 0 10px;
+        letter-spacing: -0.2px;
+      }
+      .checklist {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 10px;
+      }
+      .checklist li {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        color: var(--muted);
+        font-weight: 650;
+        line-height: 1.5;
+        font-size: 14px;
+      }
+      .checklist svg {
+        width: 18px;
+        height: 18px;
+        flex: 0 0 auto;
+        margin-top: 2px;
+      }
+
+      /* stats */
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+      }
+      .stat {
+        border-radius: var(--radius);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.05);
+        padding: 16px;
+      }
+      .stat .num {
+        font-size: 26px;
+        font-weight: 900;
+        letter-spacing: -0.4px;
+      }
+      .stat .label {
+        color: var(--muted);
+        font-weight: 700;
+        font-size: 13px;
+        margin-top: 6px;
+      }
+
+      /* pricing */
+      .pricing {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .price-card {
+        border-radius: var(--radius);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.05);
+        padding: 18px;
+        position: relative;
+        overflow: hidden;
+      }
+      .price-card.featured {
+        background: linear-gradient(180deg, rgba(124, 58, 237, 0.22), rgba(255, 255, 255, 0.05));
+        border-color: rgba(124, 58, 237, 0.35);
+      }
+      .price-card .tag {
+        display: inline-flex;
+        padding: 8px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.04);
+        font-weight: 800;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.82);
+      }
+      .price-card h3 {
+        margin: 12px 0 6px;
+      }
+      .price {
+        font-size: 34px;
+        font-weight: 950;
+        letter-spacing: -0.6px;
+        margin: 10px 0 4px;
+      }
+      .sub {
+        color: var(--muted);
+        font-weight: 650;
+        font-size: 13px;
+        margin-bottom: 12px;
+      }
+      .price-feats {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 10px;
+      }
+      .price-feats li {
+        color: var(--muted);
+        font-weight: 650;
+        font-size: 14px;
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        line-height: 1.5;
+      }
+
+      /* testimonials */
+      .testimonials {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .quote {
+        border-radius: var(--radius);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.05);
+        padding: 18px;
+      }
+      .quote p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.82);
+        line-height: 1.6;
+        font-weight: 650;
+        font-size: 14px;
+      }
+      .who {
+        margin-top: 12px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        display: grid;
+        place-items: center;
+        font-weight: 900;
+        color: rgba(255, 255, 255, 0.85);
+      }
+      .who strong {
+        display: block;
+        font-size: 14px;
+      }
+      .who span {
+        display: block;
+        color: var(--muted);
+        font-weight: 650;
+        font-size: 12px;
+        margin-top: 2px;
+      }
+
+      /* FAQ */
+      .faq {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      .qa {
+        border-radius: var(--radius);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.05);
+        overflow: hidden;
+      }
+      .qa button {
+        width: 100%;
+        text-align: left;
+        padding: 16px 16px;
+        background: transparent;
+        border: 0;
+        color: var(--text);
+        font-weight: 800;
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+      .qa .ans {
+        padding: 0 16px 16px;
+        color: var(--muted);
+        line-height: 1.6;
+        font-weight: 650;
+        font-size: 14px;
+        display: none;
+      }
+      .qa.open .ans {
+        display: block;
+      }
+      .chev {
+        width: 18px;
+        height: 18px;
+        transition: 0.2s ease;
+        opacity: 0.9;
+      }
+      .qa.open .chev {
+        transform: rotate(180deg);
+      }
+
+      /* contact */
+      .contact {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 14px;
+        align-items: stretch;
+      }
+      .contact-card {
+        border-radius: var(--radius);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+        padding: 18px;
+        box-shadow: var(--shadow);
+      }
+      .contact-card p {
+        color: var(--muted);
+        line-height: 1.6;
+        font-weight: 650;
+        margin: 10px 0 0;
+        font-size: 14px;
+      }
+      .contact-form {
+        border-radius: var(--radius);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.05);
+        padding: 18px;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+      label {
+        display: block;
+        font-size: 12px;
+        font-weight: 800;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 6px;
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 12px 12px;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(7, 9, 16, 0.45);
+        color: rgba(255, 255, 255, 0.9);
+        outline: none;
+        font-weight: 650;
+        transition: 0.2s ease;
+      }
+      textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+      input:focus,
+      textarea:focus {
+        border-color: rgba(6, 182, 212, 0.55);
+        box-shadow: 0 0 0 6px rgba(6, 182, 212, 0.12);
+      }
+      .form-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: 6px;
+      }
+      .hint {
+        color: var(--muted2);
+        font-weight: 650;
+        font-size: 12px;
+      }
+
+      /* footer */
+      footer {
+        padding: 28px 0 34px;
+        border-top: 1px solid var(--line);
+        background: rgba(7, 9, 16, 0.5);
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 14px;
+        align-items: start;
+      }
+      .footer-links {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+      .footer-links a {
+        color: var(--muted);
+        font-weight: 650;
+        font-size: 13px;
+        padding: 10px 10px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.03);
+      }
+      .footer-links a:hover {
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .copy {
+        margin-top: 12px;
+        color: var(--muted2);
+        font-weight: 650;
+        font-size: 12px;
+      }
+
+      /* modal */
+      .modal {
+        position: fixed;
+        inset: 0;
+        z-index: 200;
+        display: none;
+        place-items: center;
+        background: rgba(0, 0, 0, 0.55);
+        padding: 22px;
+      }
+      .modal.open {
+        display: grid;
+      }
+      .modal-card {
+        width: min(860px, 100%);
+        border-radius: 22px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(7, 9, 16, 0.88);
+        backdrop-filter: blur(18px);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+      .modal-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 14px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      .modal-top strong {
+        letter-spacing: -0.2px;
+      }
+      .xbtn {
+        width: 40px;
+        height: 40px;
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.04);
+        cursor: pointer;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 900;
+      }
+      .modal-body {
+        padding: 14px;
+        display: grid;
+        grid-template-columns: 1fr 0.8fr;
+        gap: 14px;
+      }
+      .modal-preview {
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: radial-gradient(340px 200px at 25% 20%, rgba(124, 58, 237, 0.3), transparent 60%),
+          radial-gradient(340px 200px at 75% 60%, rgba(6, 182, 212, 0.22), transparent 60%),
+          rgba(255, 255, 255, 0.04);
+        min-height: 240px;
+        position: relative;
+        overflow: hidden;
+      }
+      .modal-preview::after {
+        content: "";
+        position: absolute;
+        inset: 16px;
+        border: 1px dashed rgba(255, 255, 255, 0.22);
+        border-radius: 18px;
+        opacity: 0.75;
+      }
+      .modal-meta p {
+        margin: 0;
+        color: var(--muted);
+        font-weight: 650;
+        line-height: 1.65;
+        font-size: 14px;
+      }
+      .modal-meta .chip-row {
+        margin-top: 12px;
+      }
+
+      /* reveal animations */
+      .reveal {
+        opacity: 0;
+        transform: translateY(14px);
+        transition: 0.7s ease;
+      }
+      .reveal.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* responsive */
+      @media (max-width: 980px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+        .showcase {
+          grid-template-columns: 1fr;
+        }
+        .side-card {
+          position: relative;
+          top: auto;
+        }
+        .stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .cards-3 {
+          grid-template-columns: 1fr;
+        }
+        .project-grid {
+          grid-template-columns: 1fr;
+        }
+        .pricing {
+          grid-template-columns: 1fr;
+        }
+        .testimonials {
+          grid-template-columns: 1fr;
+        }
+        .faq {
+          grid-template-columns: 1fr;
+        }
+        .contact {
+          grid-template-columns: 1fr;
+        }
+        .modal-body {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 860px) {
+        .nav-links,
+        .nav-cta .btn:not(.btn-primary) {
+          display: none;
+        }
+        .hamburger {
+          display: inline-grid;
+          place-items: center;
+        }
+        .mobile-menu.show {
+          display: block;
+        }
+      }
+      @media (max-width: 520px) {
+        .row {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="grid-bg"></div>
+
+    <nav class="nav">
+      <div class="container nav-inner">
+        <a class="brand" href="#top">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            App360 <span style="opacity: 0.7; font-weight: 800">Studio</span>
+          </div>
+        </a>
+
+        <div class="nav-links" aria-label="Primary">
+          <a href="#services">Services</a>
+          <a href="#work">Work</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contact">Contact</a>
+        </div>
+
+        <div class="nav-cta">
+          <button class="btn" id="btnCall">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path
+                d="M7 4h4l2 5-3 2c1 3 4 6 7 7l2-3 5 2v4c0 1-1 2-2 2C10 23 1 14 1 4c0-1 1-2 2-2h4z"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linejoin="round"
+              />
+            </svg>
+            Call
+          </button>
+          <a class="btn btn-primary" href="#contact">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path
+                d="M4 12h16M14 6l6 6-6 6"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            Get a Quote
+          </a>
+          <button class="hamburger" id="hamburger" aria-label="Open menu">
+            <span></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="container mobile-menu" id="mobileMenu">
+        <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <header class="hero" id="top">
+      <div class="glow" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="reveal">
+          <div class="pill">
+            <span class="dot"></span>
+            Flutter experts • Play Store + App Store shipping
+          </div>
+
+          <h1>
+            Build stunning apps with
+            <span class="grad-text">Flutter</span> — fast, scalable & premium UI.
+          </h1>
+
+          <p>
+            We design and develop high-performance mobile apps using Flutter.
+            MVP থেকে enterprise-grade app—সবই production-ready quality তে।
+            Clean UI/UX, solid architecture, and smooth app store delivery.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact">
+              Start a Project
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M4 12h16M14 6l6 6-6 6"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </a>
+            <a class="btn" href="#work">
+              View Work
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 5v14M5 12h14"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </a>
+          </div>
+
+          <div class="meta-row">
+            <span>
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 21s7-4.5 7-11a7 7 0 10-14 0c0 6.5 7 11 7 11z"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                />
+                <path
+                  d="M12 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                />
+              </svg>
+              Remote-friendly • Dhaka / Global
+            </span>
+            <span>
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 2l3 7h7l-5.6 4.1L18.7 21 12 16.9 5.3 21l2.3-7.9L2 9h7l3-7z"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              5★ client satisfaction
+            </span>
+            <span>
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M20 7l-8 8-4-4"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M4 12V5a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2v-3"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                />
+              </svg>
+              NDA & clean handover
+            </span>
+          </div>
+        </div>
+
+        <div class="device-wrap reveal">
+          <div class="device">
+            <div class="device-topbar">
+              <div class="circles" aria-hidden="true">
+                <i></i><i></i><i></i>
+              </div>
+              <div class="badge-mini">MVP → Store Launch</div>
+            </div>
+
+            <div class="device-content">
+              <div class="card">
+                <div class="statline">
+                  <strong>Release Readiness</strong>
+                  <span id="readyPct">0%</span>
+                </div>
+                <div class="progress">
+                  <div id="readyBar"></div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="statline">
+                  <strong>Core Stack</strong>
+                  <span>Architecture • CI/CD • QA</span>
+                </div>
+                <div class="chip-row" style="margin-top: 10px">
+                  <div class="chip">Flutter</div>
+                  <div class="chip">Firebase / REST</div>
+                  <div class="chip">Clean Architecture</div>
+                  <div class="chip">App Store & Play</div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="statline">
+                  <strong>What you get</strong>
+                  <span>Fast delivery</span>
+                </div>
+                <div class="chip-row" style="margin-top: 10px">
+                  <div class="chip">Pixel-perfect UI</div>
+                  <div class="chip">Smooth animations</div>
+                  <div class="chip">Crash-free builds</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <h2>Services that ship real apps</h2>
+            <p>
+              Idea থেকে store release পর্যন্ত end-to-end service — design, development,
+              testing, deployment, and long-term support.
+            </p>
+          </div>
+        </div>
+
+        <div class="cards-3">
+          <div class="feature reveal">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M4 7h16M7 4v16M4 17h16"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+            <h3>Flutter App Development</h3>
+            <p>
+              Single codebase, two platforms. Smooth performance, scalable structure, best practices.
+            </p>
+          </div>
+
+          <div class="feature reveal">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 2l7 4v8c0 5-3.5 8-7 8s-7-3-7-8V6l7-4z"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M9 12l2 2 4-5"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+            <h3>Quality & Store Compliance</h3>
+            <p>
+              Play Store policies, App Store guidelines, crash analytics, performance tuning, clean releases.
+            </p>
+          </div>
+
+          <div class="feature reveal">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M4 14c3 0 3-4 6-4s3 4 6 4 3-4 6-4"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M4 18c3 0 3-4 6-4s3 4 6 4 3-4 6-4"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+            <h3>Backend + Integrations</h3>
+            <p>
+              Firebase, REST APIs, payment gateway, push notification, maps, chat, analytics — সব integrate করি।
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section id="work">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <h2>Selected work</h2>
+            <p>
+              Clean UI + strong logic. নিচে demo portfolio items (click করলে বিস্তারিত modal আসবে)।
+            </p>
+          </div>
+        </div>
+
+        <div class="showcase">
+          <div class="project-grid">
+            <div class="project reveal" data-project="FinPay">
+              <div class="thumb"></div>
+              <div class="info">
+                <strong>FinPay — Wallet & Transfers</strong>
+                <span>Flutter • Firebase • KYC flow • Transaction history • Admin dashboard</span>
+              </div>
+            </div>
+
+            <div class="project reveal" data-project="Foodio">
+              <div class="thumb"></div>
+              <div class="info">
+                <strong>Foodio — Delivery App</strong>
+                <span>Flutter • Map tracking • Rider app • Push notification • Offers</span>
+              </div>
+            </div>
+
+            <div class="project reveal" data-project="Medix">
+              <div class="thumb"></div>
+              <div class="info">
+                <strong>Medix — Appointment Booking</strong>
+                <span>Flutter • Slot booking • Prescription upload • Video call ready</span>
+              </div>
+            </div>
+
+            <div class="project reveal" data-project="EduPro">
+              <div class="thumb"></div>
+              <div class="info">
+                <strong>EduPro — Learning Platform</strong>
+                <span>Flutter • Course player • Offline download • Subscription</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="side-card reveal">
+            <h3>How we work</h3>
+            <ul class="checklist">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+                </svg>
+                Requirements + Scope lock (MVP roadmap)
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+                </svg>
+                UI/UX design + clickable prototype
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+                </svg>
+                Flutter development (clean architecture)
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+                </svg>
+                QA + performance + store submission
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+                </svg>
+                Maintenance & feature iterations
+              </li>
+            </ul>
+
+            <div style="margin-top: 14px">
+              <a class="btn btn-primary" href="#contact" style="width: 100%; justify-content: center">
+                Request Proposal
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M4 12h16M14 6l6 6-6 6"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section>
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <h2>Results you can expect</h2>
+            <p>এগুলো demo counters — আপনার কোম্পানির আসল সংখ্যায় replace করে দিবেন।</p>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat reveal">
+            <div class="num" data-count="65">0</div>
+            <div class="label">Apps delivered</div>
+          </div>
+          <div class="stat reveal">
+            <div class="num" data-count="12">0</div>
+            <div class="label">Weeks average MVP</div>
+          </div>
+          <div class="stat reveal">
+            <div class="num" data-count="4.9">0</div>
+            <div class="label">Avg rating</div>
+          </div>
+          <div class="stat reveal">
+            <div class="num" data-count="99.8">0</div>
+            <div class="label">% crash-free sessions</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <h2>Simple pricing</h2>
+            <p>
+              আপনার scope অনুযায়ী exact quote হবে। এখানে তিনটা popular package দিলাম (demo)।
+            </p>
+          </div>
+        </div>
+
+        <div class="pricing">
+          <div class="price-card reveal">
+            <div class="tag">Starter</div>
+            <h3>MVP Launch</h3>
+            <div class="price">$2,499+</div>
+            <div class="sub">Best for early-stage idea validation</div>
+            <ul class="price-feats">
+              <li>✅ UI kit + 6–10 screens</li>
+              <li>✅ Firebase / REST integration</li>
+              <li>✅ Basic admin/reporting</li>
+              <li>✅ Play Store release support</li>
+            </ul>
+            <div style="margin-top: 14px">
+              <a class="btn" href="#contact" style="width: 100%; justify-content: center">Get this plan</a>
+            </div>
+          </div>
+
+          <div class="price-card featured reveal">
+            <div class="tag">Most Popular</div>
+            <h3>Growth App</h3>
+            <div class="price">$4,999+</div>
+            <div class="sub">Full product with better UX & analytics</div>
+            <ul class="price-feats">
+              <li>✅ 12–18 screens + animation</li>
+              <li>✅ Payments, notifications, maps</li>
+              <li>✅ QA + performance tuning</li>
+              <li>✅ Play Store + App Store submission</li>
+            </ul>
+            <div style="margin-top: 14px">
+              <a class="btn btn-primary" href="#contact" style="width: 100%; justify-content: center">
+                Talk to us
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M4 12h16M14 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="price-card reveal">
+            <div class="tag">Enterprise</div>
+            <h3>Scale & Support</h3>
+            <div class="price">Custom</div>
+            <div class="sub">For multi-module apps & long-term roadmap</div>
+            <ul class="price-feats">
+              <li>✅ Modular architecture</li>
+              <li>✅ CI/CD, staging, monitoring</li>
+              <li>✅ Dedicated support & SLA</li>
+              <li>✅ Security & compliance review</li>
+            </ul>
+            <div style="margin-top: 14px">
+              <a class="btn" href="#contact" style="width: 100%; justify-content: center">Request a quote</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section>
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <h2>Clients love the execution</h2>
+            <p>Demo testimonial — আপনার real client quote বসিয়ে দিবেন।</p>
+          </div>
+        </div>
+
+        <div class="testimonials">
+          <div class="quote reveal">
+            <p>
+              “UI was premium, delivery was on time, and App Store submission was smooth.
+              Team communication was excellent.”
+            </p>
+            <div class="who">
+              <div class="avatar">AR</div>
+              <div>
+                <strong>Arif Rahman</strong>
+                <span>Founder, Retail App</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="quote reveal">
+            <p>
+              “Flutter architecture was clean, features were scalable. After launch, crash rate stayed super low.”
+            </p>
+            <div class="who">
+              <div class="avatar">SM</div>
+              <div>
+                <strong>Sumaiya Mahmud</strong>
+                <span>Product Manager</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="quote reveal">
+            <p>
+              “They handled payment + notification + analytics end-to-end. We shipped both iOS & Android with one codebase.”
+            </p>
+            <div class="who">
+              <div class="avatar">HK</div>
+              <div>
+                <strong>Hasan Kabir</strong>
+                <span>CTO, FinTech</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <h2>FAQ</h2>
+            <p>Common questions — direct & clear answers.</p>
+          </div>
+        </div>
+
+        <div class="faq">
+          <div class="qa reveal">
+            <button type="button">
+              Flutter দিয়ে কি iOS + Android দুইটাই হবে?
+              <svg class="chev" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+              </svg>
+            </button>
+            <div class="ans">
+              হ্যাঁ। Flutter দিয়ে একটাই codebase থেকে দুই প্ল্যাটফর্মেই app ship করা যায়—time & cost দুটোই কমে।
+            </div>
+          </div>
+
+          <div class="qa reveal">
+            <button type="button">
+              App Store/Play Store submission কি আপনারা করেন?
+              <svg class="chev" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+              </svg>
+            </button>
+            <div class="ans">
+              জি। Policy compliance, screenshots, privacy details, build signing—সবকিছু handle করে submission করি।
+            </div>
+          </div>
+
+          <div class="qa reveal">
+            <button type="button">
+              Timeline কতদিন লাগে?
+              <svg class="chev" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+              </svg>
+            </button>
+            <div class="ans">
+              MVP সাধারণত 6–12 সপ্তাহ (scope অনুযায়ী)। Large apps হলে staged release plan করি।
+            </div>
+          </div>
+
+          <div class="qa reveal">
+            <button type="button">
+              Maintenance & updates কি থাকে?
+              <svg class="chev" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+              </svg>
+            </button>
+            <div class="ans">
+              থাকে। Monthly support plan, bug fixes, OS update compatibility, new features—সব customize করে দেই।
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <h2>Let’s build your app</h2>
+            <p>একটা ছোট briefing দিলেই আমরা timeline + cost estimate দিয়ে দিব।</p>
+          </div>
+        </div>
+
+        <div class="contact">
+          <div class="contact-card reveal">
+            <h3 style="margin: 0">What we need from you</h3>
+            <p>✅ App idea / target audience</p>
+            <p>✅ Core features list</p>
+            <p>✅ Any reference apps (if any)</p>
+            <p>✅ Deadline (optional)</p>
+
+            <div style="margin-top: 14px" class="chip-row">
+              <div class="chip">NDA on request</div>
+              <div class="chip">Weekly updates</div>
+              <div class="chip">Clean source handover</div>
+            </div>
+
+            <div style="margin-top: 14px">
+              <button class="btn" id="btnEmail" style="width: 100%; justify-content: center">
+                Email us
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M4 6h16v12H4z"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M4 7l8 6 8-6"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+              <div class="hint" style="margin-top: 10px">
+                Demo email/phone — আপনার real info বসিয়ে দিন।
+              </div>
+            </div>
+          </div>
+
+          <form class="contact-form reveal" id="contactForm">
+            <div class="row">
+              <div>
+                <label for="name">Your Name</label>
+                <input id="name" name="name" placeholder="e.g., Fahim" required />
+              </div>
+              <div>
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="you@company.com" required />
+              </div>
+            </div>
+
+            <div class="row">
+              <div>
+                <label for="service">Service</label>
+                <input id="service" name="service" placeholder="Flutter App / UI/UX / Backend" />
+              </div>
+              <div>
+                <label for="budget">Budget (optional)</label>
+                <input id="budget" name="budget" placeholder="$2,500 - $5,000" />
+              </div>
+            </div>
+
+            <div>
+              <label for="message">Project Brief</label>
+              <textarea id="message" name="message" placeholder="Tell us about your app idea & features..." required></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit">
+                Send Message
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M4 12l16-8-6 16-2.5-6L4 12z"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+              <span class="hint" id="formHint">No backend connected — demo submission.</span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container footer-grid">
+        <div>
+          <div class="brand">
+            <div class="logo" aria-hidden="true"></div>
+            <div>App360 Studio</div>
+          </div>
+          <div class="copy">
+            © <span id="year"></span> App360 Studio. Built with care for Flutter products.
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <a href="#services">Flutter Services</a>
+          <a href="#work">Portfolio</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contact">Get a Quote</a>
+          <a href="#top">Back to top</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- PROJECT MODAL -->
+    <div class="modal" id="modal">
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-top">
+          <strong id="modalTitle">Project</strong>
+          <button class="xbtn" id="modalClose" aria-label="Close">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-preview"></div>
+          <div class="modal-meta">
+            <p id="modalDesc">
+              Project description
+            </p>
+            <div class="chip-row" id="modalChips"></div>
+            <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap">
+              <a class="btn btn-primary" href="#contact" id="modalCTA">
+                Build something like this
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M4 12h16M14 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                </svg>
+              </a>
+              <button class="btn" id="modalCopy">Copy brief</button>
+            </div>
+            <div class="hint" style="margin-top: 10px">Tip: আপনার real project screenshots দিলে আরও premium লাগবে।</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // --------- Helpers
+      const $ = (sel, root = document) => root.querySelector(sel);
+      const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
+
+      // --------- Mobile menu
+      const hamburger = $("#hamburger");
+      const mobileMenu = $("#mobileMenu");
+      hamburger?.addEventListener("click", () => {
+        mobileMenu.classList.toggle("show");
+      });
+      $$("#mobileMenu a").forEach((a) =>
+        a.addEventListener("click", () => mobileMenu.classList.remove("show"))
+      );
+
+      // --------- Smooth scroll
+      $$('a[href^="#"]').forEach((a) => {
+        a.addEventListener("click", (e) => {
+          const href = a.getAttribute("href");
+          if (!href || href === "#") return;
+          const el = document.querySelector(href);
+          if (el) {
+            e.preventDefault();
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+      });
+
+      // --------- Hero progress animation
+      const readyBar = $("#readyBar");
+      const readyPct = $("#readyPct");
+      let target = 92;
+      setTimeout(() => {
+        readyBar.style.width = target + "%";
+        let n = 0;
+        const t = setInterval(() => {
+          n += 2;
+          if (n >= target) {
+            n = target;
+            clearInterval(t);
+          }
+          readyPct.textContent = n + "%";
+        }, 20);
+      }, 450);
+
+      // --------- Reveal on scroll
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("show");
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.12 }
+      );
+      $$(".reveal").forEach((el) => io.observe(el));
+
+      // --------- Counter animation
+      const counters = $$(".num[data-count]");
+      const io2 = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (!e.isIntersecting) return;
+            const el = e.target;
+            const end = parseFloat(el.dataset.count || "0");
+            const isFloat = String(end).includes(".");
+            const duration = 1100;
+            const start = performance.now();
+
+            const tick = (now) => {
+              const p = Math.min((now - start) / duration, 1);
+              const val = end * (0.08 + 0.92 * p);
+              el.textContent = isFloat ? val.toFixed(1) : Math.round(val);
+              if (p < 1) requestAnimationFrame(tick);
+              else el.textContent = isFloat ? end.toFixed(1) : String(end);
+            };
+            requestAnimationFrame(tick);
+            io2.unobserve(el);
+          });
+        },
+        { threshold: 0.25 }
+      );
+      counters.forEach((c) => io2.observe(c));
+
+      // --------- FAQ accordion
+      $$(".qa button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const card = btn.closest(".qa");
+          const isOpen = card.classList.contains("open");
+          // close others (optional)
+          $$(".qa").forEach((x) => x.classList.remove("open"));
+          if (!isOpen) card.classList.add("open");
+        });
+      });
+
+      // --------- Modal + portfolio content
+      const projects = {
+        FinPay: {
+          title: "FinPay — Wallet & Transfers",
+          desc:
+            "A secure fintech wallet app with KYC onboarding, transaction history, cash-in/out, and admin reporting. Focus: performance, security, and clean UX.",
+          chips: ["Flutter", "Firebase", "KYC", "Analytics", "Admin Panel"],
+          brief:
+            "Need a wallet app: KYC onboarding, send/receive money, transaction history, admin reporting, push notifications, and store-ready builds."
+        },
+        Foodio: {
+          title: "Foodio — Delivery App",
+          desc:
+            "Multi-role app: customer + rider. Live map tracking, order status, coupons, push notifications, and a smooth checkout experience.",
+          chips: ["Flutter", "Maps", "Rider App", "Push", "Offers"],
+          brief:
+            "Need a delivery app: customer + rider modules, live tracking, order management, offers/coupons, and payment integration."
+        },
+        Medix: {
+          title: "Medix — Appointment Booking",
+          desc:
+            "Appointment scheduling with slots, doctor profiles, uploads, reminders and scalable architecture for future video consultations.",
+          chips: ["Flutter", "Booking", "Uploads", "Reminders", "Scalable"],
+          brief:
+            "Need an appointment app: doctor list, time slots, booking, reminders, uploads, and admin for managing schedules."
+        },
+        EduPro: {
+          title: "EduPro — Learning Platform",
+          desc:
+            "Course platform with video player, progress tracking, offline download, and subscription-ready structure.",
+          chips: ["Flutter", "Course Player", "Offline", "Subscriptions", "Progress"],
+          brief:
+            "Need a learning app: course list, video player, progress tracking, offline downloads, subscriptions, and analytics."
+        }
+      };
+
+      const modal = $("#modal");
+      const modalTitle = $("#modalTitle");
+      const modalDesc = $("#modalDesc");
+      const modalChips = $("#modalChips");
+      const modalClose = $("#modalClose");
+      const modalCopy = $("#modalCopy");
+
+      $$(".project").forEach((p) => {
+        p.addEventListener("click", () => {
+          const key = p.dataset.project;
+          const data = projects[key];
+          if (!data) return;
+          modalTitle.textContent = data.title;
+          modalDesc.textContent = data.desc;
+          modalChips.innerHTML = data.chips.map((c) => `<div class="chip">${c}</div>`).join("");
+          modal.classList.add("open");
+          modalCopy.dataset.brief = data.brief;
+        });
+      });
+
+      const closeModal = () => modal.classList.remove("open");
+      modalClose.addEventListener("click", closeModal);
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeModal();
+      });
+
+      modalCopy.addEventListener("click", async () => {
+        const txt = modalCopy.dataset.brief || "";
+        try {
+          await navigator.clipboard.writeText(txt);
+          modalCopy.textContent = "Copied!";
+          setTimeout(() => (modalCopy.textContent = "Copy brief"), 1000);
+        } catch {
+          alert(txt);
+        }
+      });
+
+      // --------- Contact form demo
+      $("#contactForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        $("#formHint").textContent =
+          "✅ Message captured (demo). Connect backend to actually send.";
+        $("#formHint").style.color = "rgba(34, 197, 94, 0.9)";
+        e.target.reset();
+      });
+
+      // --------- Demo call/email actions
+      $("#btnCall").addEventListener("click", () => {
+        alert("Demo: +880 1XXXXXXXXX (replace with your real number)");
+      });
+      $("#btnEmail").addEventListener("click", () => {
+        window.location.href =
+          "mailto:hello@appcraft.studio?subject=Project%20Inquiry&body=Hi%20team,%0A%0AI%20want%20to%20build%20a%20Flutter%20app.%20Here%20is%20my%20brief:%0A";
+      });
+
+      // --------- Footer year
+      $("#year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
