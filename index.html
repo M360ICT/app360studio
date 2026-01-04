@@ -1398,10 +1398,9 @@
     <div class="container">
       <div class="section-head reveal">
         <div>
-          <h2>Selected work</h2>
+          <h2>Some of our work</h2>
           <p>
-            Clean UI backed by strong logic. Explore our portfolio below—click on any project to view detailed
-            information in a modal.
+            Our work is a reflection of our commitment to delivering high-quality, user-friendly, and innovative mobile applications.
           </p>
         </div>
       </div>
@@ -1433,8 +1432,8 @@
               <img style="background-color: #ffffff; " src="assets/images/justit.png" alt="Justit Air Express Project">
             </div>
             <div class="info">
-              <strong>Justit Air Express — Booking Management</strong>
-              <span>SSE Service • Passport upload • Visa Application • Mordern UI • Flight booking</span>
+              <strong>Justit Air Express — Flight Booking</strong>
+              <span>SSE Service • Passport upload • Visa Application • Mordern UI</span>
             </div>
           </div>
 
@@ -1444,7 +1443,7 @@
             </div>
             <div class="info">
               <strong>HB Aviation — Learning Platform</strong>
-              <span>Flutter • Course player • Offline download • Subscription</span>
+              <span>Offline download • Subscription • Mordern UI • Notification</span>
             </div>
           </div>
         </div>
@@ -1731,7 +1730,7 @@
       <div class="section-head reveal">
         <div>
           <h2>Let’s build your app</h2>
-          <p>একটা ছোট briefing দিলেই আমরা timeline + cost estimate দিয়ে দিব।</p>
+          <p>Once we receive a brief overview of the project, we will provide a detailed timeline and cost estimate.</p>
         </div>
       </div>
 
@@ -1811,7 +1810,7 @@
     <div class="container footer-grid">
       <div>
         <div class="brand">
-          <div class="logo" aria-hidden="true"></div>
+          <div class="log" aria-hidden="true">🚀</div>
           <div>App360 Studio</div>
         </div>
         <div class="copy">
@@ -1829,35 +1828,6 @@
       </div>
     </div>
   </footer>
-
-  <!-- PROJECT MODAL -->
-  <div class="modal" id="modal">
-    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="modal-top">
-        <strong id="modalTitle">Project</strong>
-        <button class="xbtn" id="modalClose" aria-label="Close">✕</button>
-      </div>
-      <div class="modal-body">
-        <div class="modal-preview"></div>
-        <div class="modal-meta">
-          <p id="modalDesc">
-            Project description
-          </p>
-          <div class="chip-row" id="modalChips"></div>
-          <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap">
-            <a class="btn btn-primary" href="#contact" id="modalCTA">
-              Build something like this
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M4 12h16M14 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
-              </svg>
-            </a>
-            <button class="btn" id="modalCopy">Copy brief</button>
-          </div>
-          <div class="hint" style="margin-top: 10px">Tip: আপনার real project screenshots দিলে আরও premium লাগবে।</div>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <script>
     // --------- Helpers
@@ -1956,82 +1926,6 @@
       });
     });
 
-    // --------- Modal + portfolio content
-    const projects = {
-      FinPay: {
-        title: "FinPay — Wallet & Transfers",
-        desc:
-          "A secure fintech wallet app with KYC onboarding, transaction history, cash-in/out, and admin reporting. Focus: performance, security, and clean UX.",
-        chips: ["Flutter", "Firebase", "KYC", "Analytics", "Admin Panel"],
-        brief:
-          "Need a wallet app: KYC onboarding, send/receive money, transaction history, admin reporting, push notifications, and store-ready builds."
-      },
-      Foodio: {
-        title: "Foodio — Delivery App",
-        desc:
-          "Multi-role app: customer + rider. Live map tracking, order status, coupons, push notifications, and a smooth checkout experience.",
-        chips: ["Flutter", "Maps", "Rider App", "Push", "Offers"],
-        brief:
-          "Need a delivery app: customer + rider modules, live tracking, order management, offers/coupons, and payment integration."
-      },
-      Medix: {
-        title: "Medix — Appointment Booking",
-        desc:
-          "Appointment scheduling with slots, doctor profiles, uploads, reminders and scalable architecture for future video consultations.",
-        chips: ["Flutter", "Booking", "Uploads", "Reminders", "Scalable"],
-        brief:
-          "Need an appointment app: doctor list, time slots, booking, reminders, uploads, and admin for managing schedules."
-      },
-      EduPro: {
-        title: "EduPro — Learning Platform",
-        desc:
-          "Course platform with video player, progress tracking, offline download, and subscription-ready structure.",
-        chips: ["Flutter", "Course Player", "Offline", "Subscriptions", "Progress"],
-        brief:
-          "Need a learning app: course list, video player, progress tracking, offline downloads, subscriptions, and analytics."
-      }
-    };
-
-    const modal = $("#modal");
-    const modalTitle = $("#modalTitle");
-    const modalDesc = $("#modalDesc");
-    const modalChips = $("#modalChips");
-    const modalClose = $("#modalClose");
-    const modalCopy = $("#modalCopy");
-
-    $$(".project").forEach((p) => {
-      p.addEventListener("click", () => {
-        const key = p.dataset.project;
-        const data = projects[key];
-        if (!data) return;
-        modalTitle.textContent = data.title;
-        modalDesc.textContent = data.desc;
-        modalChips.innerHTML = data.chips.map((c) => `<div class="chip">${c}</div>`).join("");
-        modal.classList.add("open");
-        modalCopy.dataset.brief = data.brief;
-      });
-    });
-
-    const closeModal = () => modal.classList.remove("open");
-    modalClose.addEventListener("click", closeModal);
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) closeModal();
-    });
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeModal();
-    });
-
-    modalCopy.addEventListener("click", async () => {
-      const txt = modalCopy.dataset.brief || "";
-      try {
-        await navigator.clipboard.writeText(txt);
-        modalCopy.textContent = "Copied!";
-        setTimeout(() => (modalCopy.textContent = "Copy brief"), 1000);
-      } catch {
-        alert(txt);
-      }
-    });
-
     // --------- Contact form demo
     $("#contactForm").addEventListener("submit", (e) => {
       e.preventDefault();
@@ -2043,11 +1937,11 @@
 
     // --------- Demo call/email actions
     $("#btnCall").addEventListener("click", () => {
-      alert("Demo: +880 1XXXXXXXXX (replace with your real number)");
+      alert("+8801888798798");
     });
     $("#btnEmail").addEventListener("click", () => {
       window.location.href =
-        "mailto:hello@appcraft.studio?subject=Project%20Inquiry&body=Hi%20team,%0A%0AI%20want%20to%20build%20a%20Flutter%20app.%20Here%20is%20my%20brief:%0A";
+        "mailto:mail@app360studio.com?subject=Project%20Inquiry&body=Hi%20team,%0A%0AI%20want%20to%20build%20a%20Flutter%20app.%20Here%20is%20my%20brief:%0A";
     });
 
     // --------- Footer year
